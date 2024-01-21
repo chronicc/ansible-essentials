@@ -1,0 +1,25 @@
+[linux]
+us2204-1 ansible_host=us2204-1.example.tld
+us2204-2 ansible_host=us2204-2.example.tld
+
+[linux:vars]
+ansible_port=22
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+ansible_user=root
+
+[linux_webservers]
+us2204-2
+
+[windows]
+ws2022-1 ansible_host=ws2022-1.example.tld
+ws2022-2 ansible_host=ws2022-2.example.tld
+
+[windows:vars]
+ansible_connection=winrm
+ansible_password=Aut0mata!
+ansible_user=automata
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_transport=credssp
+
+[windows_dcs]
+ws2022-1

@@ -1,0 +1,6 @@
+---
+dc_domain_name: example.tld
+dc_domain_admin_user: DomainAdmin
+dc_domain_admin_password: "P4ssword!"
+dc_safe_mode_password: "S4feM0deP4ssword!"
+dc_timezone: Europe/Berlin

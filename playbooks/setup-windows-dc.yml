@@ -1,0 +1,34 @@
+---
+- name: Setup a windows domain controller
+  hosts: windows_dcs
+  tasks:
+    - name: Include domain controller role
+      ansible.builtin.include_role:
+        name: my-domain-controller
+      tags:
+        - install
+        - config
+
+    - name: Get the domain name
+      ansible.windows.win_reg_stat:
+        path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+        name: Domain
+      register: _domain_name
+
+    - name: Check for the correct domain
+      ansible.builtin.assert:
+        that:
+          - _domain_name is defined
+          - _domain_name.value == dc_domain_name
+
+# concepts:
+# - role
+# - assert
+# - register
+# - variables
+# - tasks
+# - tags
+# - collections
+# - when
+# - inventory
+# - host_vars

@@ -1,0 +1,14 @@
+---
+- name: Install git on linux hosts
+  hosts: linux
+  become: true
+  tasks:
+    - name: Install git
+      ansible.builtin.apt:
+        name: git
+        state: present
+
+# concepts:
+# - become
+# - playbook
+# - tasks

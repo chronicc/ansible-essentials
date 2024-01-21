@@ -1,0 +1,17 @@
+---
+auth_groups:
+  - lnx_name: automation
+    win_name: Automation Users
+
+auth_users:
+  - name: automation
+    lnx_groups:
+      - sudo
+      - automation
+    win_groups:
+      - Administrators
+      - Automation Users
+    password: "{{ vault_auth_users_automation_password }}"
+  - name: testuser
+    password: "{{ vault_auth_users_testuser_password }}"
+    shell: /bin/sh

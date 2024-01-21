@@ -1,0 +1,25 @@
+---
+- name: Ensure the server is a domain controller for a new domain
+  microsoft.ad.domain:
+    dns_domain_name: "{{ dc_domain_name }}"
+    safe_mode_password: "{{ dc_safe_mode_password }}"
+    reboot: true
+  tags:
+    - install
+
+- name: Create a domain admin user
+  microsoft.ad.user:
+    name: "{{ dc_domain_admin_user }}"
+    password: "{{ dc_domain_admin_password }}"
+    update_password: when_changed
+    state: present
+  tags:
+    - install
+
+- name: Set the timezone
+  ansible.windows.win_regedit:
+    path: HKLM:\SYSTEM\CurrentControlSet\Control\TimeZoneInformation
+    name: TimeZoneKeyName
+    type: string
+    data: "{{ dc_timezone }}"
+  when: dc_timezone != ""

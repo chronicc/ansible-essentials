@@ -1,0 +1,14 @@
+---
+- name: Update windows hosts
+  hosts: windows
+  tasks:
+    - name: Install windows updates
+      ansible.windows.win_updates:
+        category_names:
+          - SecurityUpdates
+          - CriticalUpdates
+          - UpdateRollups
+          - Updates
+        state: installed
+        reboot: true
+        reboot_timeout: 3600

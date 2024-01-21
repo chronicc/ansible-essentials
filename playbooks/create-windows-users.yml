@@ -1,0 +1,28 @@
+---
+- name: Create users on windows hosts
+  hosts: windows
+  tasks:
+    - name: Create groups
+      ansible.windows.win_group:
+        name: "{{ item.win_name }}"
+        state: present
+      loop: "{{ auth_groups }}"
+
+    - name: Create users
+      ansible.windows.win_user:
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"
+        groups: "{{ item.win_groups | default(omit) }}"
+        state: present
+      loop: "{{ auth_users }}"
+
+# concepts:
+# - collection
+# - filter
+# - group_vars
+# - inventory
+# - loop
+# - playbook
+# - tasks
+# - variables
+# - vault

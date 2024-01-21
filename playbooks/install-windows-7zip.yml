@@ -1,0 +1,33 @@
+---
+- name: Install 7zip on windows hosts
+  hosts: windows
+  vars:
+    app_version: '2301'
+  tasks:
+    - name: Set download url to 64 bit
+      ansible.builtin.set_fact:
+        _download_url: "https://www.7-zip.org/a/7z{{ app_version }}-x64.msi"
+      when: ansible_architecture2 == 'x86_64'
+
+    - name: Set download url to 32 bit
+      ansible.builtin.set_fact:
+        _download_url: "https://www.7-zip.org/a/7z{{ app_version }}.msi"
+      when: not ansible_architecture2 == 'x86_64'
+
+    - name: Download 7zip
+      ansible.windows.win_get_url:
+        url: "{{ _download_url }}"
+        dest: C:\Windows\Temp\7z.msi
+
+    - name: Install 7zip
+      ansible.windows.win_package:
+        path: C:\Windows\Temp\7z.msi
+        state: present
+        product_id: "{23170F69-40C1-2702-2301-000002000000}"
+        arguments: "/quiet"
+
+# concepts:
+# - tasks
+# - variables
+# - vars
+# - when

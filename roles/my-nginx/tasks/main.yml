@@ -1,0 +1,51 @@
+---
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  notify:
+    - restart nginx
+  tags:
+    - install
+
+- name: Copy nginx config
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: "{{ nginx_config_dir }}/nginx.conf"
+    mode: '0644'
+  notify:
+    - reload nginx
+  tags:
+    - config
+
+- name: Remove default sites
+  ansible.builtin.file:
+    path: "{{ nginx_config_dir }}/sites-enabled/default"
+    state: absent
+  notify:
+    - reload nginx
+  when: nginx_remove_default_sites
+  tags:
+    - config
+
+- name: Create site root directories
+  ansible.builtin.file:
+    path: "{{ item.root_path }}"
+    state: directory
+    mode: '0755'
+  loop: "{{ nginx_sites }}"
+  notify: reload nginx
+  tags:
+    - config
+
+- name: Copy site configs
+  ansible.builtin.template:
+    src: site.j2
+    dest: "{{ nginx_config_dir }}/sites-enabled/{{ item.name }}"
+    mode: '0644'
+  loop: "{{ nginx_sites }}"
+  notify: reload nginx
+  tags:
+    - config

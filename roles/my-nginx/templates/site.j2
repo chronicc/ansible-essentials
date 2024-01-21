@@ -1,0 +1,15 @@
+server {
+        listen {{ item.port }};
+        listen [::]:{{ item.port }};
+
+        root {{ item.root_path }};
+        index index.html index.htm;
+
+        server_name {{ item.dns_name }};
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+        }
+}

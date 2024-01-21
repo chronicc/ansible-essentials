@@ -1,0 +1,33 @@
+---
+- name: Create users on linux hosts
+  hosts: linux
+  become: true
+  tasks:
+    - name: Create groups
+      ansible.builtin.group:
+        gid: "{{ item.gid | default(omit) }}"
+        name: "{{ item.lnx_name }}"
+        state: present
+      loop: "{{ auth_groups | default({}) }}"
+
+    - name: Create users
+      ansible.builtin.user:
+        groups: "{{ item.lnx_groups | default(omit) }}"
+        name: "{{ item.name }}"
+        password: "{{ item.password | password_hash('sha512') }}"
+        shell: "{{ item.shell | default('/bin/bash') }}"
+        state: present
+      loop: "{{ auth_users | default({}) }}"
+      loop_control:
+        label: "{{ item.name }}"
+
+# concepts:
+# - become
+# - filter
+# - group_vars
+# - inventory
+# - loop
+# - playbook
+# - tasks
+# - variables
+# - vault
