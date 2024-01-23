@@ -19,6 +19,6 @@ install: .venv/bin/activate ## Install requirements for this repository.
 
 .venv/bin/activate: requirements.lock
 	python3 -m venv .venv
-	./.venv/bin/pip install -U pip
-	./.venv/bin/pip install -r requirements.lock
-	./.venv/bin/ansible-galaxy install -r requirements.yml
+	./.venv/bin/pip install ${PIP_OPTIONS} -U pip
+	./.venv/bin/pip install ${PIP_OPTIONS} -r requirements.lock
+	./.venv/bin/ansible-galaxy install -cr requirements.yml

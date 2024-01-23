@@ -20,34 +20,34 @@ The password is `ziquutoi4deiBahT6bee` and must be stored in `~/.ansible/vault-a
 - ansible architektur
 - ansible-galaxy
 - ansible-playbook
-- assert
+- assert +
 - become +++
 - block
 - changed_when
 - check mode
-- collections +
+- collections ++
 - debugging
 - diff
 - failed_when
 - filter ++
 - group_vars +++
 - handlers +
-- host_vars
+- host_vars +
 - idempotence
-- inventory ++
+- inventory +++
 - linting
 - loop +++
 - module
 - multiline string
 - playbook +++
 - plugins
-- register
+- register +
 - rescue
-- roles +
-- tags +
-- tasks +++++
-- templates
-- variables +++
+- roles ++
+- tags ++
+- tasks ++++++
+- templates +
+- variables ++++
 - vars +
 - vault ++
-- when ++
+- when +++

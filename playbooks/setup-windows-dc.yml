@@ -22,13 +22,13 @@
           - _domain_name.value == dc_domain_name
 
 # concepts:
-# - role
 # - assert
-# - register
-# - variables
-# - tasks
-# - tags
 # - collections
-# - when
-# - inventory
 # - host_vars
+# - inventory
+# - register
+# - roles
+# - tags
+# - tasks
+# - variables
+# - when
