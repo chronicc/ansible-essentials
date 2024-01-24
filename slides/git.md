@@ -40,7 +40,7 @@ Die Zielgruppe sind Menschen, die noch gar nicht mit Git gearbeitet haben.
 
 - Begriffserklärung
 - Die drei Bäume von Git
-- Kommandos
+- Aufbau eines Repositories von Null
 
 ---
 
@@ -69,11 +69,23 @@ Alle Dateien in einem Repository (mit Ausnahme `.git`) können **commited** werd
 
 ## Was ist ein Commit
 
-Ein Commit ist eine Momentaufnahme, bei dem der Unterschied zu einem vorherigen Commit (**Parent**) gespeichert wird (inkrementell).
+Ein Commit ist eine Momentaufnahme, bei dem der Unterschied zu einem vorherigen Commit (**parent**) gespeichert wird (inkrementell).
 
-Ein Commit hat immer einen **Parent** außer es ist der erste Commit in einem Repository.
+Ein Commit hat immer einen parent außer es ist der erste Commit in einem Repository.
 
 ![width:600px center](./git_commit_timeline.png)
+
+---
+
+# Was ist ein Commit Hash
+
+Jeder Commit hat eine eindeutige Kennung mit welcher er identifiziert werden kann.
+
+Anhand des Hashes erkennt ein Commit seinen parent Commit.
+
+Lange Form: `2292229534b11d061273dcc1af82514cce23f09d`
+
+Kurze Form: `2292229`
 
 ---
 
@@ -154,7 +166,7 @@ Mit **Reset** werden Dateien für den nächsten Commit als nicht relevant markie
 ## Zusammenfassung der Begriffe
 
 - Repository
-- Commit
+- Commit/Commit Hash
 - Tag
 - Branch
 - Merge
@@ -170,7 +182,20 @@ Mit **Reset** werden Dateien für den nächsten Commit als nicht relevant markie
 
 ---
 
-## Kommando: config
+## Aufbau eines Repositories von Null
+
+- Git konfigurieren
+- Repository initialisieren
+- Remote Origin anlegen
+- Dateien committen
+- Änderungen zu Origin pushen
+- Git History resetten
+- Änderungen von Origin pullen
+- Branch erstellen und mergen
+
+---
+
+## Git konfigurieren
 
 Git kann für die eigenen Bedürfnisse angepasst werden.
 
@@ -178,3 +203,250 @@ Auflisten der bestehenden konfiguration:
 
 `git config -l` für lokales Repository
 `git config --global -l` für globale Konfiguration
+
+#### Beispiel
+
+```
+$ git config --global user.name "Vorname Nachname"
+$ git config --global user.email "name@example.tld"
+$ git config --global init.defaultBranch main
+```
+
+---
+
+## Repository initialisieren
+
+Mit `git init` wird ein neues Git Repository angelegt.
+
+Dabei wird das Verzeichnis `.git` erzeugt und mit Metadaten gefüllt.
+
+#### Beispiel
+
+```
+$ mkdir tsteinert-ansible
+$ cd tsteinert-ansible
+$ git init
+$ ls -1a
+./
+../
+.git/
+```
+
+---
+
+## Remote Origin anlegen
+
+M `git remote` werden entfernte Git Server zum lokalen Repository hinzugefügt.
+
+#### Beispiel
+
+```
+$ git remote add origin git@github.com/chronicc/ansible-essentials.git
+$ git remote show origin
+* remote origin
+  Fetch URL: git@github.com:chronicc/ansible-essentials.git
+  Push  URL: git@github.com:chronicc/ansible-essentials.git
+  HEAD branch: main
+  ...
+```
+
+---
+
+## Status des Repository abfragen
+
+Mit `git status` werden Informationen zum Zustand des Repositories ausgegeben.
+
+#### Beispiel
+
+```
+$ git status
+On branch main
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+```
+
+---
+
+## Dateien zum Index hinzufügen
+
+Mit `git add <file>` wird eine Datei zum **Index** hinzugefügt werden.
+
+#### Beispiel
+
+```
+$ touch .gitignore
+$ git add .gitignore
+$ git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   .gitignore
+```
+
+---
+
+## Dateien vom Index entfernen
+
+Mit `git reset <file>` wird eine Datei vom **Index** entfernt werden.
+
+#### Beispiel
+
+```
+$ git reset .gitignore
+$ git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.gitignore
+```
+---
+
+## Dateien committen
+
+Mit `git commit` werden alle Dateien vom **Index** in einem Commit zusammengefasst.
+
+#### Beispiel
+
+```
+$ git add .gitignore
+$ git commit -m "Add .gitignore"
+[main (root-commit) a416bd4] Add .gitignore
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 .gitignore
+```
+
+---
+
+## Git History anschauen
+
+Mit `git log` wird die Git History angezeigt.
+
+#### Beispiel
+
+```
+$ git log --oneline
+c1ec34e (HEAD -> main) Add README.md
+e37f2a5 Add .gitignore
+```
+
+---
+
+## Änderungen zu Origin pushen
+
+Mit `git push` werden Commits vom lokalen Repository zum **remote** Server gesendet.
+
+#### Beispiel
+
+```
+$ git push
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 20 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 270 bytes | 270.00 KiB/s, done.
+...
+```
+
+---
+
+## Noch mehr Dateien committen und pushen
+
+#### Beispiel
+
+```
+$ echo "# Ansible Workshop" > README.md
+$ git add README.md
+$ git commit -m "Add README.md"
+$ git push
+```
+
+---
+
+## Git History resetten
+
+Mit `git reset --hard <commit_hash>` oder `git reset --hard HEAD~<x>` wird die Git History auf diesen Commit zurück gesetzt. All Commit, die danach entstanden, werden im lokalen Repository gelöscht.
+
+#### Beispiel
+
+```
+$ git log --oneline
+$ git reset --hard HEAD~1
+$ git log --online
+```
+
+---
+
+## Änderungen von Origin pullen
+
+Mit `git pull` werden Commits vom **remote** Server in das lokale Repository geladen.
+
+#### Beispiel
+
+```
+$ git pull
+Updating 9499860..2292229
+Fast-forward
+ README.md | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ ...
+```
+
+---
+
+## Einen Branch erstellen
+
+Mit `git branch <branch_name>` wird ein neuer Branch erstellt. Mit `git checkout` <branch_name> wird zu diesem Branch gewechselt. Mit `git branch` werden alle Branches des lokalen Repositories aufgelisted.
+
+#### Beispiel
+
+```
+$ git branch
+$ git branch update-gitignore
+$ git checkout update-gitignore
+$ git branch
+```
+
+---
+
+## Die .gitignore erweitern
+
+Fügen Sie den String `.venv/` zur `.gitignore` hinzu und committen Sie diese Änderung. Pushen Sie dann diese Änderungen zum `origin/update-gitignore`.
+
+#### Beispiel
+
+```
+$ echo ".venv" >> .gitignore
+...?
+```
+
+---
+
+# Den Branch mergen
+
+Checken Sie den default Branch aus (`main`/`master`) und mergen Sie den `update-gitignore` Branch.
+
+#### Beispiel
+
+```
+...?
+$ git merge update-gitignore
+$ git log --graph
+```
+
+---
+
+## Zusammenfassung
+
+- Sie kennen nun die gängigen Begriffe im Zusammenhang mit Git
+- Sie verstehen das Konzept der drei Bäume von Git
+- Sie haben ein Git Repository initialisiert und die gängisten Funktionen von Git angewendet
+
+#### Fragen?
