@@ -429,7 +429,7 @@ $ echo ".venv" >> .gitignore
 
 ---
 
-# Den Branch mergen
+## Den Branch mergen
 
 Checken Sie den default Branch aus (`main`/`master`) und mergen Sie den `update-gitignore` Branch.
 
@@ -440,6 +440,18 @@ Checken Sie den default Branch aus (`main`/`master`) und mergen Sie den `update-
 $ git merge update-gitignore
 $ git push
 $ git log --graph
+```
+
+---
+
+## Ein Repository clonen
+
+Mit `git clone <url>` kann ein Repository von einem Server gecloned werden.
+
+#### Beispiel
+
+```
+$ git clone
 ```
 
 ---
