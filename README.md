@@ -14,40 +14,32 @@ The password is `ziquutoi4deiBahT6bee` and must be stored in `~/.ansible/vault-a
 
 ## Concepts used in this repository
 
-- ad-hoc
-- setup
-- ansible
-- ansible architektur
-- ansible-galaxy
-- ansible-playbook
+- ad-hoc s
+- setup s
+- ansible architektur s
+- ansible galaxy
 - assert +
-- become +++
-- block
-- changed_when
+- become s+++
 - check mode
 - collections ++
 - debugging
 - diff
-- failed_when
-- filter ++
-- group_vars +++
+- filter s++
+- group_vars s+++
 - handlers +
 - host_vars +
 - idempotence
-- inventory +++
+- inventory s+++
 - linting
-- loop +++
-- module
+- loop s+++
 - multiline string
-- playbook +++
-- plugins
+- playbook s+++
 - register +
-- rescue
 - roles ++
 - tags ++
-- tasks ++++++
+- tasks s++++++
 - templates +
-- variables ++++
-- vars +
-- vault ++
+- variables s++++
+- vars s+
+- vault s++
 - when +++

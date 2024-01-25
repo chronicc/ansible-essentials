@@ -17,6 +17,9 @@ clean: ## Clean up the repository.
 
 install: .venv/bin/activate ## Install requirements for this repository.
 
+render-slides:
+	marp --pdf --html --allow-local-files slides/*.md
+
 .venv/bin/activate: requirements.lock
 	python3 -m venv .venv
 	./.venv/bin/pip install ${PIP_OPTIONS} -U pip

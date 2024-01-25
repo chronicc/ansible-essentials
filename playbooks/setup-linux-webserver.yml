@@ -50,3 +50,5 @@
 # - tasks
 # - templates
 # - when
+# - diff
+# - check_mode

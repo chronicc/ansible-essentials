@@ -23,8 +23,8 @@
       ansible.windows.win_package:
         path: C:\Windows\Temp\7z.msi
         state: present
-        product_id: "{23170F69-40C1-2702-2301-000002000000}"
         arguments: "/quiet"
+        # product_id: "{23170F69-40C1-2702-2301-000002000000}"
 
 # concepts:
 # - tasks

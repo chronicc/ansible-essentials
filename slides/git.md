@@ -14,7 +14,7 @@ img[alt~="center"] {
 |
 |
 
-# Git Einführung
+# Git Grundlagen
 
 |
 |
@@ -27,7 +27,7 @@ img[alt~="center"] {
 
 Verständnis schaffen
 
-- wie die eigene Arbeit in Git gespeichert wird,
+- wie die eigene Arbeit in Git gespeichert wird
 - wie lokale Änderungen zu einem zentralen Server gelangen
 - wie Änderungen vom Server nach lokal gelangen
 - wie parallel an einem Projekt gearbeitet werden kann
@@ -73,7 +73,7 @@ Ein Commit ist eine Momentaufnahme, bei dem der Unterschied zu einem vorherigen 
 
 Ein Commit hat immer einen parent außer es ist der erste Commit in einem Repository.
 
-![width:600px center](./git_commit_timeline.png)
+![width:600px center](./images/git_commit_timeline.png)
 
 ---
 
@@ -95,7 +95,7 @@ Ein Tag ist ein Zeiger, der immer auf einen spezifischen Commit zeigt.
 
 Mehrere Tags können auf den gleichen Commit zeigen.
 
-![width:800px center](./git_head_tag.png)
+![width:800px center](./images/git_head_tag.png)
 
 ---
 
@@ -105,7 +105,7 @@ Ein Branch ist eine Kette von Commits auf dessen letzten Commit ein Tag mit dem 
 
 Der erste (default) Branch in einem Repository heißt üblicherweise `main` (früher `master`).
 
-![width:800px center](./git_main_branch.png)
+![width:800px center](./images/git_main_branch.png)
 
 ---
 
@@ -115,7 +115,7 @@ Wenn ein weiterer Branch erzeugt wird, spricht man von Branching.
 
 Dies ermöglicht die parallele Arbeit mehrerer Personen am selben Projekt.
 
-![width:500px center](./git_new_branch.png)
+![width:500px center](./images/git_new_branch.png)
 
 ---
 
@@ -125,7 +125,7 @@ Bei einem Merge werden zwei Branches zusammen geführt und die Änderungen beide
 
 Wenn in beiden Branches die gleiche Datei verändert wurde, führt das zu **Merge Konflikten**.
 
-![width:800px center](./git_merge.png)
+![width:800px center](./images/git_merge.png)
 
 ---
 
@@ -135,7 +135,7 @@ Bei einem rebase Merge wird der Parent des ersten Branches auf den letzten Commi
 
 Das führt zu einer klareren Commit Geschichte und verhindert Merge Konflikte beim Mergen.
 
-![width:800px center](./git_rebase.png)
+![width:800px center](./images/git_rebase.png)
 
 ---
 
@@ -143,7 +143,7 @@ Das führt zu einer klareren Commit Geschichte und verhindert Merge Konflikte be
 
 Bei einem Push werden Commits, Tags und Branches vom lokalen Repository zu einem zentralen Server gesendet, auf den mehrere Personen Zugriff haben.
 
-![width:500px center](./git_push.png)
+![width:500px center](./images/git_push.png)
 
 ---
 
@@ -151,7 +151,7 @@ Bei einem Push werden Commits, Tags und Branches vom lokalen Repository zu einem
 
 Bei einem Pull werden Commits, Tags und Branches von einem zentralen Server zum lokalen Repository geladen.
 
-![width:500px center](./git_pull.png)
+![width:500px center](./images/git_pull.png)
 
 ---
 
@@ -178,7 +178,7 @@ Mit **Reset** werden Dateien für den nächsten Commit als nicht relevant markie
 
 ## Die drei Bäume von Git
 
-![center](./git_three_trees.png)
+![center](./images/git_three_trees.png)
 
 ---
 
@@ -438,6 +438,7 @@ Checken Sie den default Branch aus (`main`/`master`) und mergen Sie den `update-
 ```
 ...?
 $ git merge update-gitignore
+$ git push
 $ git log --graph
 ```
 
