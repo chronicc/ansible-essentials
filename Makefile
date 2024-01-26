@@ -17,8 +17,8 @@ clean: ## Clean up the repository.
 
 install: .venv/bin/activate ## Install requirements for this repository.
 
-render-slides:
-	marp --pdf --html --allow-local-files slides/*.md
+slides: slides/ansible.md slides/git.md
+	marp --pdf --pdf-notes --html --allow-local-files slides/*.md
 
 .venv/bin/activate: requirements.lock
 	python3 -m venv .venv

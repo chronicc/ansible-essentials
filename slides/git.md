@@ -451,8 +451,9 @@ Mit `git clone <url>` kann ein Repository von einem Server gecloned werden.
 #### Beispiel
 
 ```
-$ git clone
+$ git clone https://github.com/chronicc/ansible-essentials.git
 ```
+<!-- Dateien von ansible-essentials in das neu angelegte Repository kopieren und make install ausführen. -->
 
 ---
 
