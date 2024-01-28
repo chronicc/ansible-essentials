@@ -241,7 +241,10 @@ Wir erstellen die `ansible.cfg` und füllen sie mit Werten.
 
 Im Inventory können Variablen spezifisch für Gruppen angelegt werden. Jede Node, die sich im Inventory befindet, ist automatisch Teil der Gruppe `all`.
 
-Gruppenvariablen werden in `inventory/group_vars/<group_name>.yml` oder `inventory/group_vars/<group_name>/*.yml` definiert.
+Gruppenvariablen werden in
+
+- `inventory/group_vars/<group_name>.yml` oder
+- `inventory/group_vars/<group_name>/*.yml` definiert.
 
 #### > Live-Übung
 
@@ -429,7 +432,10 @@ Wir installieren und konfigurieren einen Webserver auf Linux inklusive der Webse
 
 Im Inventory können Variablen spezifisch für Hosts angelegt werden.
 
-Hostvariablen werden in `inventory/host_vars/<group_name>.yml` oder `inventory/host_vars/<group_name>/*.yml` definiert.
+Hostvariablen werden in
+
+- `inventory/host_vars/<group_name>.yml` oder
+- `inventory/host_vars/<group_name>/*.yml` definiert.
 
 ---
 

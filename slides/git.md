@@ -464,3 +464,5 @@ $ git clone https://github.com/chronicc/ansible-essentials.git
 - Sie haben ein Git Repository initialisiert und die gängisten Funktionen von Git angewendet
 
 #### Fragen?
+
+https://education.github.com/git-cheat-sheet-education.pdf
