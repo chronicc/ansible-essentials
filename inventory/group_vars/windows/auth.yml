@@ -1,14 +1,10 @@
 ---
 auth_groups:
-  - lnx_name: automation
-    win_name: Automation Users
+  - name: Automation Users
 
 auth_users:
   - name: automation
-    lnx_groups:
-      - sudo
-      - automation
-    win_groups:
+    groups:
       - Administrators
       - Automation Users
     password: "{{ vault_auth_users_automation_password }}"

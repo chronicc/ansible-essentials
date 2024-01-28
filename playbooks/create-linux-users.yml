@@ -6,13 +6,13 @@
     - name: Create groups
       ansible.builtin.group:
         gid: "{{ item.gid | default(omit) }}"
-        name: "{{ item.lnx_name }}"
+        name: "{{ item.name }}"
         state: present
       loop: "{{ auth_groups | default({}) }}"
 
     - name: Create users
       ansible.builtin.user:
-        groups: "{{ item.lnx_groups | default(omit) }}"
+        groups: "{{ item.groups | default(omit) }}"
         name: "{{ item.name }}"
         password: "{{ item.password | password_hash('sha512') }}"
         shell: "{{ item.shell | default('/bin/bash') }}"

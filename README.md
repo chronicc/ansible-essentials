@@ -17,29 +17,27 @@ The password is `ziquutoi4deiBahT6bee` and must be stored in `~/.ansible/vault-a
 - ad-hoc s
 - setup s
 - ansible architektur s
-- ansible galaxy
-- assert +
+- ansible galaxy s
+- assert s+
 - become s+++
 - check mode
-- collections ++
+- collections s++
 - debugging
 - diff
 - filter s++
 - group_vars s+++
-- handlers +
-- host_vars +
-- idempotence
+- handlers s+
+- host_vars s+
 - inventory s+++
 - linting
 - loop s+++
-- multiline string
 - playbook s+++
-- register +
-- roles ++
-- tags ++
+- register s+
+- roles s++
+- tags s++
 - tasks s++++++
-- templates +
+- templates s+
 - variables s++++
 - vars s+
 - vault s++
-- when +++
+- when s+++

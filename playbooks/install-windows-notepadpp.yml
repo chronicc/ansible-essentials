@@ -1,0 +1,8 @@
+---
+- name: Install a notepad++ with chocolatey on a Windows host
+  hosts: windows
+  tasks:
+    - name: Install notepad++
+      chocolatey.chocolatey.win_chocolatey:
+        name: notepadplusplus
+        state: present

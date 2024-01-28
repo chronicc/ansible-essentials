@@ -1,0 +1,13 @@
+---
+auth_groups:
+  - name: automation
+
+auth_users:
+  - name: automation
+    groups:
+      - sudo
+      - automation
+    password: "{{ vault_auth_users_automation_password }}"
+  - name: testuser
+    password: "{{ vault_auth_users_testuser_password }}"
+    shell: /bin/sh

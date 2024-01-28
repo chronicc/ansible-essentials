@@ -18,6 +18,6 @@
       notify: reboot
 
   handlers:
-    - name: Reboot the server if kernel was updated
+    - name: Reboot the server
       ansible.builtin.reboot:
       listen: reboot

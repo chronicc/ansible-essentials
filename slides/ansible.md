@@ -34,6 +34,10 @@ Zielgruppe sind Menschen, die noch nicht oder sehr wenig mit Ansible gearbeitet 
 
 ## Inhalt
 
+- Was ist Ansible
+- Inventar
+- Anwendungsfälle (Playbooks)
+- Anwendungsfälle (Rollen)
 
 
 ---
@@ -53,13 +57,13 @@ Es bietet Möglichkeiten für
 
 ## Architektur: Agentless
 
-![width:800px center]()
+![width:700px center](./images/ansible_architektur.png)
 
 ---
 
 ## Architektur: Verbindung
 
-![width:800px center]()
+![width:800px center](./images/ansible_connections.png)
 
 ---
 
@@ -104,7 +108,7 @@ $ ansible -i inventory/hosts -m ansible.builtin.setup linux1
 
 ## Architektur: Modules, Tasks and Playbooks
 
-![width:800px center]()
+![width:800px center](./images/ansible_mod_task_playbook.png)
 
 <small>https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html</small>
 
@@ -151,7 +155,7 @@ Wir installieren git auf einer Linux Node.
 
 ---
 
-## Variablen in Ansible
+## Variablen
 
 Tasks können mit Variablen so angepasst werden, dass die für verschiedene Szenarien wieder verwendet werden können.
 
@@ -169,7 +173,7 @@ Variablen werden mit der Syntax `"{{ variable_name}}"` verwendet.
 
 ---
 
-## Variablen in Ansible
+## Variablen
 
 Variablen können u.a. in einem Playbook definiert werden.
 
@@ -190,7 +194,7 @@ Variablen können u.a. in einem Playbook definiert werden.
 
 ---
 
-## Variablen in Ansible
+## Variablen
 
 Mit dem Modul `ansible.builtin.set_fact` können Variablen auch während eines Plays gesetzt werden.
 
@@ -212,6 +216,17 @@ Wir installieren 7zip auf einer Windows Node.
 
 ---
 
+## Installieren eines Programms mit chocolatey
+
+Mit dem Modul `chocolatey.chocolatey.win_chocolatey` können Programme auf Windows mit chocolatey installiert werden.
+
+#### > Aufgabe
+
+- Suchen Sie die Dokumentation für `win_chocolatey`
+- Schreiben Sie ein Playbook, in dem notepad++ auf einem Windows Host installiert wird
+
+---
+
 ## Ansible konfigurieren
 
 Ansible kann an die eigenen Bedürfnisse angepasst werden mit Hilfe der `ansible.cfg` Datei auf der root-Ebene des Git Repositories.
@@ -224,9 +239,9 @@ Wir erstellen die `ansible.cfg` und füllen sie mit Werten.
 
 ## Gruppen Variablen
 
-Im Inventory können Variablen spezifisch für Gruppen angelegt werden.
+Im Inventory können Variablen spezifisch für Gruppen angelegt werden. Jede Node, die sich im Inventory befindet, ist automatisch Teil der Gruppe `all`.
 
-Jede Node, die sich im Inventory befindet, ist automatisch Teil der Gruppe `all`.
+Gruppenvariablen werden in `inventory/group_vars/<group_name>.yml` oder `inventory/group_vars/<group_name>/*.yml` definiert.
 
 #### > Live-Übung
 
@@ -252,7 +267,7 @@ Jinja ist eine Templatingengine welche von Ansible benutzt wird um Variablen und
 - `{{ ... }}` for Expressions to print to the template output
 - `{# ... #}` for Comments not included in the template output
 
-```jinja2
+```jinja
 <ul id="navigation">
     {% for item in navigation %}
         <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
@@ -278,7 +293,7 @@ In Ansible werden Jinja Filter verwendet um Variablen während des Plays anzupas
 
 ---
 
-## Schleifen in Ansible
+## Schleifen
 
 Schleifen werden in Ansible mit dem Keyword `loop` angewendet. Es kann über Listen und Dictionaries iterieren.
 
@@ -301,7 +316,104 @@ Schleifen werden in Ansible mit dem Keyword `loop` angewendet. Es kann über Lis
 
 #### > Live-Übung
 
-Wir erzeugen Gruppen und Benutzer auf Linux und Windows Nodes.
+Wir erzeugen Gruppen und Benutzer in Linux.
+
+#### Aufgabe
+
+- Erzeugen Sie die gleichen Gruppen und Benutzer in Windows
+- **Tip:** In Windows dürfen Gruppen und Benutzer nicht den gleichen Namen haben.
+- **Tip:** Dateien unterhalb von `group_vars/all` werden immer ausgelesen.
+
+---
+
+## Templates
+
+Mit Templates können Dateien erzeugt werden, deren Inhalt variabel ist. Innerhalb von Templates können alle Variablen benutzt werden, die sich in einem Play befinden.
+
+Für Templates wird die Sprache **Jinja** verwendet.
+
+```jinja
+<ul id="navigation">
+    {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+    {% endfor %}
+</ul>
+```
+
+---
+
+## Handlers
+
+**Handlers** sind Tasks, die auf Change-Events reagieren. Mit Hilfe von Handlern können z.B. Dienste oder Hosts automatisch neugestartet werden, wenn sich die Konfiguration ändert.
+
+---
+
+## Handlers (Beispiel)
+
+```yaml
+  tasks:
+    - name: Update all packages to the latest version
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+      notify: reboot
+
+  handlers:
+    - name: Reboot the server
+      ansible.builtin.reboot:
+      listen: reboot
+```
+
+---
+
+## Tags
+
+Mit Hilfe von **Tags** können während eines Plays die Tasks gefiltert werden, die ausgeführt werden.
+
+Tags werden mit `-t/--tags` auf der Kommandozeile verwendet.
+
+```
+$ ansible-playbook -i inventory playbooks/play.yml -t install
+```
+
+---
+
+## Tags (Beispiel)
+
+```yaml
+  - name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+  tags:
+    - install
+
+- name: Copy nginx config
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: "{{ nginx_config_dir }}/nginx.conf"
+    mode: '0644'
+  tags:
+    - config
+```
+
+---
+
+## Roles und Communities
+
+**Roles** sind abgeschlossene Container, die Tasks, Handlers, Dateien, Templates, Variablen und Tests enthalten. Sie können verwendet werden um komplizierte Abläufe abzubilden, die aber dennoch entsprechend ihres Einsatzzwecks konfiguriert werden können.
+
+**Communities** sind organisatorische Container, in denen mehrere Rollen und Module veröffentlicht werden.
+
+---
+
+## Ansible Galaxy
+
+Die **Ansible Galaxy** is eine Platform, auf der Rollen und Communities geteilt werden.
+
+https://galaxy.ansible.com
+
+Das gleichnamige Kommandozeilenwerkzeug bietet die Möglichkeit sowohl Rollen und Communities zu installieren als auch neue zu erschaffen.
 
 ---
 
@@ -312,3 +424,59 @@ Wir erzeugen Gruppen und Benutzer auf Linux und Windows Nodes.
 Wir installieren und konfigurieren einen Webserver auf Linux inklusive der Webseiten.
 
 ---
+
+## Hostvariablen
+
+Im Inventory können Variablen spezifisch für Hosts angelegt werden.
+
+Hostvariablen werden in `inventory/host_vars/<group_name>.yml` oder `inventory/host_vars/<group_name>/*.yml` definiert.
+
+---
+
+## Task Ergebnisse registrieren
+
+Ausgeführte Tasks bieten i.d.R. Informationen über den Änderungsstatus, den Erfolgsstatus und Task spezifische Informationen. Diese Informationen können mit Hilfe von `register` gespeichert werden.
+
+#### Beispiel
+
+```yaml
+    - name: Get the domain name
+      ansible.windows.win_reg_stat:
+        path: HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+        name: Domain
+      register: _domain_name
+```
+
+---
+
+## Testen mit Assert
+
+Das Module `ansible.builtin.assert` kann benutzt werden um den Inhalt von Variablen zu bestätigen.
+
+#### Beispiel
+
+```yaml
+    - name: Check that the content of number is 10
+      ansible.builtin.assert:
+        that:
+          - number is defined
+          - number == 10
+```
+
+---
+
+## Aufsetzen eines Windows Domänencontrollers
+
+#### > Live-Übung
+
+Wir installierem einen Domänencontroller auf einem Windows Host.
+
+---
+
+## Zusammenfassung
+
+- Sie haben die gängisten Konzepte von Ansible kennen gelernt.
+- Sie haben gesehen wie man Playbooks und Rollen erzeugt um Schritte zu automatisieren.
+- Sie verstehen wie man mit Hilfe von Templates Konfigurationsdateien für unterschiedliche Umgebungen bereit stellt
+
+#### Fragen?

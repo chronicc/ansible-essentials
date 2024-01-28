@@ -325,7 +325,7 @@ $ git commit -m "Add .gitignore"
 
 ---
 
-## Git History anschauen
+## Git History inspizieren
 
 Mit `git log` wird die Git History angezeigt.
 

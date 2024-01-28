@@ -4,7 +4,7 @@
   tasks:
     - name: Create groups
       ansible.windows.win_group:
-        name: "{{ item.win_name }}"
+        name: "{{ item.name }}"
         state: present
       loop: "{{ auth_groups }}"
 
@@ -12,7 +12,7 @@
       ansible.windows.win_user:
         name: "{{ item.name }}"
         password: "{{ item.password }}"
-        groups: "{{ item.win_groups | default(omit) }}"
+        groups: "{{ item.groups | default(omit) }}"
         state: present
       loop: "{{ auth_users }}"
 
