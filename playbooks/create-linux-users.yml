@@ -8,7 +8,7 @@
         gid: "{{ item.gid | default(omit) }}"
         name: "{{ item.name }}"
         state: present
-      loop: "{{ auth_groups | default({}) }}"
+      loop: "{{ auth_groups | default([]) }}"
 
     - name: Create users
       ansible.builtin.user:
@@ -17,7 +17,7 @@
         password: "{{ item.password | password_hash('sha512') }}"
         shell: "{{ item.shell | default('/bin/bash') }}"
         state: present
-      loop: "{{ auth_users | default({}) }}"
+      loop: "{{ auth_users | default([]) }}"
       loop_control:
         label: "{{ item.name }}"
 

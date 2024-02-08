@@ -159,7 +159,7 @@ Wir installieren git auf einer Linux Node.
 
 Tasks können mit Variablen so angepasst werden, dass die für verschiedene Szenarien wieder verwendet werden können.
 
-Variablen werden mit der Syntax `"{{ variable_name}}"` verwendet.
+Variablen werden mit der Syntax `"{{ variable_name }}"` verwendet.
 
 #### Beispiel
 
@@ -402,21 +402,23 @@ $ ansible-playbook -i inventory playbooks/play.yml -t install
 
 ---
 
-## Roles und Communities
+## Roles und Collections
 
 **Roles** sind abgeschlossene Container, die Tasks, Handlers, Dateien, Templates, Variablen und Tests enthalten. Sie können verwendet werden um komplizierte Abläufe abzubilden, die aber dennoch entsprechend ihres Einsatzzwecks konfiguriert werden können.
 
-**Communities** sind organisatorische Container, in denen mehrere Rollen und Module veröffentlicht werden.
+**Collections** sind organisatorische Container, in denen mehrere Rollen und Module veröffentlicht werden.
 
 ---
 
 ## Ansible Galaxy
 
-Die **Ansible Galaxy** is eine Platform, auf der Rollen und Communities geteilt werden.
+Die **Ansible Galaxy** is eine Platform, auf der Rollen und Collections geteilt werden.
 
 https://galaxy.ansible.com
 
-Das gleichnamige Kommandozeilenwerkzeug bietet die Möglichkeit sowohl Rollen und Communities zu installieren als auch neue zu erschaffen.
+Das gleichnamige Kommandozeilenwerkzeug bietet die Möglichkeit sowohl Rollen und Collections zu installieren als auch neue zu erschaffen.
+
+#### > Live-Übung
 
 ---
 

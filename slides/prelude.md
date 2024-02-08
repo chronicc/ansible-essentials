@@ -35,6 +35,20 @@ Verständnis für Automatisierung schaffen und Grundlagen bezüglich Git und Ans
 - 2. Tag: Ansible Grundlagen
 - 3. Tag: Eigene Szenarien, Fragen klären, Puffer
 
+Beginn: 8:30
+Mittagspause 12:00 - 13:00 Uhr
+Ende: 16:30
+Kaffeepausen: Nach Bedarf
+
+---
+
+## Regeln
+
+- Teams auf offline stellen
+- Handys auf lautlos stellen
+- Immer fragen wenn etwas unklar ist
+- Durch Fehler lernt man am besten
+
 ---
 
 ## Trainer
