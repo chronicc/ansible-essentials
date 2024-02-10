@@ -1,6 +1,6 @@
 ---
 - name: Setup linux webservers
-  hosts: linux_webservers
+  hosts: linux
   become: true
   tasks:
     - name: Include nginx role
@@ -8,36 +8,6 @@
         name: my-nginx
       tags:
         - install
-        - config
-
-    - name: Create index page for site.example.tld with inline content
-      ansible.builtin.copy:
-        dest: /var/www/example_site/index.html
-        content: '<p>Hello, World!</p>'
-        owner: www-data
-        group: www-data
-        mode: '0644'
-      tags:
-        - config
-
-    - name: Create index page for site.example.tld with local file
-      ansible.builtin.copy:
-        dest: /var/www/another_site/index.html
-        src: ../files/index.html
-        owner: www-data
-        group: www-data
-        mode: '0644'
-      tags:
-        - config
-
-    - name: Create index page for site.example.tld with remote file
-      ansible.builtin.get_url:
-        dest: /var/www/third_site/index.html
-        url: https://raw.githubusercontent.com/chronicc/ansible-essentials/devel/files/index.html
-        owner: www-data
-        group: www-data
-        mode: '0644'
-      tags:
         - config
 
 # concepts:

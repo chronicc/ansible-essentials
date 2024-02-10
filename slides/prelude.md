@@ -31,7 +31,7 @@ Verständnis für Automatisierung schaffen und Grundlagen bezüglich Git und Ans
 
 ## Aufbau
 
-- 1. Tag: Automatisierung & Git Grundlagen
+- 1. Tag: Automatisierung, WSL/Linux & Git Grundlagen
 - 2. Tag: Ansible Grundlagen
 - 3. Tag: Eigene Szenarien, Fragen klären, Puffer
 
@@ -44,7 +44,7 @@ Kaffeepausen: Nach Bedarf
 
 ## Regeln
 
-- Teams auf offline stellen
+- Teams nur für Workshopkommunikation nutzen
 - Handys auf lautlos stellen
 - Immer fragen wenn etwas unklar ist
 - Durch Fehler lernt man am besten

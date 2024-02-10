@@ -1,0 +1,4 @@
+---
+dns_domain_name: example.tld
+dns_domain_admin_user: DomainAdmin
+dns_domain_admin_password: "P4ssword!"

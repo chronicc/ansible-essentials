@@ -1,0 +1,72 @@
+---
+- name: Create a project structure under linux
+  hosts: linux
+  vars:
+    project_dir: "/opt/ansible-workshop"
+    project_tree:
+      - docs
+      - scripts
+      - tests
+      - www
+    project_user: bumblebee
+    azs:
+      '192.168.121.234': '1'
+      '192.168.121.6': '2'
+  tasks:
+    - name: Set availability zone
+      ansible.builtin.set_fact:
+        az: "{{ azs[ansible_default_ipv4['address']] }}"
+
+    - name: Create the project user
+      ansible.builtin.user:
+        name: "{{ project_user }}"
+        state: present
+        shell: /bin/bash
+        home: "{{ project_dir }}"
+        createhome: true
+
+    # - name: Create the project directory
+    #   ansible.builtin.file:
+    #     path: "{{ project_dir }}"
+    #     state: directory
+    #     owner: root
+    #     group: root
+    #     mode: "0755"
+
+    - name: Copy the project meta file to the node
+      ansible.builtin.copy:
+        content: "My Ansible Workshop Project\n"
+        dest: "{{ project_dir }}/project.txt"
+        owner: "{{ project_user }}"
+        mode: "0644"
+      become: true
+      become_user: "{{ project_user }}"
+
+    - name: Create the project structure
+      ansible.builtin.file:
+        path: "{{ project_dir }}/{{ item }}"
+        state: directory
+        owner: "{{ project_user }}"
+        mode: "0755"
+      loop: "{{ project_tree }}"
+      become: true
+      become_user: "{{ project_user }}"
+
+    - name: Copy the index file to the www directory
+      ansible.builtin.template:
+        src: templates/index.html.j2
+        dest: "{{ project_dir }}/www/index.html"
+        owner: "{{ project_user }}"
+        mode: "0644"
+      become: true
+      become_user: "{{ project_user }}"
+
+    - name: Install tree package
+      ansible.builtin.package:
+        name: tree
+        state: present
+
+# concepts:
+# - tasks
+# - loop
+# - become

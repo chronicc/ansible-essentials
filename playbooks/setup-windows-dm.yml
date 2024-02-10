@@ -1,0 +1,18 @@
+---
+- name: Setup a windows domain members
+  hosts: windows_dms
+  tasks:
+    - name: Configure the dns lookup
+      ansible.windows.win_dns_client:
+        adapter_names: '*'
+        dns_servers:
+          - 192.168.121.235
+          - 8.8.8.8
+
+    - name: Join host to domain with automatic reboot
+      microsoft.ad.membership:
+        dns_domain_name: "{{ dns_domain_name }}"
+        domain_admin_user: "{{ dns_domain_admin_user }}@{{ dns_domain_name }}"
+        domain_admin_password: "{{ dns_domain_admin_password }}"
+        state: domain
+        reboot: true

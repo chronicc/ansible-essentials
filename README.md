@@ -10,7 +10,7 @@ Creating an Ansible setup from scratch. See the git history to see the build up.
 
 ## Vault
 
-The password is `ziquutoi4deiBahT6bee` and must be stored in `~/.ansible/vault-ansible-essentials`.
+The password is `ziquutoi4deiBahT6bee` and must be stored in `~/.ansible/vault-ansible-essentials` or triggered on the command line with `--ask-vault-pass`.
 
 ## Concepts used in this repository
 

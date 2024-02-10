@@ -1,4 +1,6 @@
 [linux]
+cos8-1 ansible_host=cos8-1.example.tld
+cos8-2 ansible_host=cos8-2.example.tld
 us2204-1 ansible_host=us2204-1.example.tld
 us2204-2 ansible_host=us2204-2.example.tld
 
@@ -8,6 +10,7 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/
 ansible_user=root
 
 [linux_webservers]
+cos8-2
 us2204-2
 
 [windows]
@@ -21,5 +24,10 @@ ansible_user=automata
 ansible_winrm_server_cert_validation=ignore
 ansible_winrm_transport=credssp
 
+# Domain Controllers
 [windows_dcs]
 ws2022-1
+
+# Domain Members
+[windows_dms]
+ws2022-2
