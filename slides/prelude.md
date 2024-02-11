@@ -54,6 +54,7 @@ Kaffeepausen: Nach Bedarf
 ## Trainer
 
 - Kurt Thomas Steinert
+- * 18.08.1988
 - DevOps Engineer, Spezialisierung Automatisierung
 - Seit 1997 als hobby
 - Seit 2013 professionel

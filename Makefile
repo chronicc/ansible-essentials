@@ -25,16 +25,26 @@ slides: slides/ansible.md slides/git.md ## Generate slides.
 cheatsheet-deps: \
 	cheatsheets/cs-ansible.pdf \
 	cheatsheets/cs-ansible-playbook.pdf \
+	cheatsheets/cs-ansible-playbook-structure.pdf \
+	cheatsheets/cs-ansible-playbook-structure-en.pdf \
 	cheatsheets/cs-ansible-inventory.pdf \
 	cheatsheets/cs-ansible-vault.pdf \
 	cheatsheets/cs-ansible-galaxy.pdf \
-	cheatsheets/cs-linux-cli.pdf
+	cheatsheets/cs-linux-cli.pdf \
+	cheatsheets/cs-linux-cli-en.pdf
+
 
 cheatsheets/cs-ansible.pdf: cheatsheets/cs-ansible.md
 	pandoc cheatsheets/cs-ansible.md -o cheatsheets/cs-ansible.pdf --template eisvogel --listings
 
 cheatsheets/cs-ansible-playbook.pdf: cheatsheets/cs-ansible-playbook.md
 	pandoc cheatsheets/cs-ansible-playbook.md -o cheatsheets/cs-ansible-playbook.pdf --template eisvogel --listings
+
+cheatsheets/cs-ansible-playbook-structure.pdf: cheatsheets/cs-ansible-playbook-structure.md
+	pandoc cheatsheets/cs-ansible-playbook-structure.md -o cheatsheets/cs-ansible-playbook-structure.pdf --template eisvogel --listings
+
+cheatsheets/cs-ansible-playbook-structure-en.pdf: cheatsheets/cs-ansible-playbook-structure-en.md
+	pandoc cheatsheets/cs-ansible-playbook-structure-en.md -o cheatsheets/cs-ansible-playbook-structure-en.pdf --template eisvogel --listings
 
 cheatsheets/cs-ansible-inventory.pdf: cheatsheets/cs-ansible-inventory.md
 	pandoc cheatsheets/cs-ansible-inventory.md -o cheatsheets/cs-ansible-inventory.pdf --template eisvogel --listings
@@ -47,6 +57,9 @@ cheatsheets/cs-ansible-galaxy.pdf: cheatsheets/cs-ansible-galaxy.md
 
 cheatsheets/cs-linux-cli.pdf: cheatsheets/cs-linux-cli.md
 	pandoc cheatsheets/cs-linux-cli.md -o cheatsheets/cs-linux-cli.pdf --template eisvogel --listings
+
+cheatsheets/cs-linux-cli-en.pdf: cheatsheets/cs-linux-cli-en.md
+	pandoc cheatsheets/cs-linux-cli-en.md -o cheatsheets/cs-linux-cli-en.pdf --template eisvogel --listings
 
 .venv/bin/activate: requirements.lock
 	python3 -m venv .venv
